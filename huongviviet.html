@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà Hàng Hương Vị Quê Nhà - Tinh Hoa Ẩm Thực Việt</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles for sticky header and smooth scroll */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .main-header.scrolled {
+            background-color: #5a2d0c; /* Màu nền đậm khi cuộn */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .main-banner {
+            background-image: url('https://cdn-www.vinid.net/2d4c71f7-c614f9033c53c7bc8288ada1635f82cf.jpg'); /* Hình ảnh cho banner chính */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Hiệu ứng Parallax */
+        }
+        .floating-contact {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .contact-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 9999px; /* Bo tròn hoàn toàn */
+            background-color: #8B4513; /* Màu nâu ấm */
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .contact-icon:hover {
+            transform: scale(1.1);
+            background-color: #A0522D; /* Màu nâu đậm hơn khi hover */
+        }
+
+        /* Hamburger menu animation */
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        .mobile-menu {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <!-- 0. Header (Thanh Điều Hướng & Logo) -->
+    <header id="main-header" class="main-header fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 bg-transparent">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="#" class="text-white text-3xl font-bold tracking-wider">Hương Vị Quê Nhà</a>
+            </div>
+
+            <!-- Thanh điều hướng (Navigation) - Desktop -->
+            <nav class="main-nav hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-amber-300 text-lg font-medium transition-colors duration-300">Trang Chủ</a>
+                <a href="#menu" class="text-white hover:text-amber-300 text-lg font-medium transition-colors duration-300">Thực Đơn</a>
+                <a href="#story" class="text-white hover:text-amber-300 text-lg font-medium transition-colors duration-300">Giới Thiệu</a>
+                <a href="#contact" class="text-white hover:text-amber-300 text-lg font-medium transition-colors duration-300">Liên Hệ</a>
+            </nav>
+
+            <!-- Nút Đặt Bàn (CTA) - Desktop -->
+            <button class="book-btn hidden md:block bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300">
+                Đặt Bàn Ngay
+            </button>
+
+            <!-- Hamburger Menu Icon - Mobile -->
+            <button id="hamburger" class="hamburger md:hidden focus:outline-none">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="mobile-menu fixed inset-0 bg-stone-900 bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 transform -translate-x-full md:hidden">
+            <a href="#home" class="text-white text-3xl font-medium hover:text-amber-300 transition-colors duration-300" onclick="toggleMobileMenu()">Trang Chủ</a>
+            <a href="#menu" class="text-white text-3xl font-medium hover:text-amber-300 transition-colors duration-300" onclick="toggleMobileMenu()">Thực Đơn</a>
+            <a href="#story" class="text-white text-3xl font-medium hover:text-amber-300 transition-colors duration-300" onclick="toggleMobileMenu()">Giới Thiệu</a>
+            <a href="#contact" class="text-white text-3xl font-medium hover:text-amber-300 transition-colors duration-300" onclick="toggleMobileMenu()">Liên Hệ</a>
+            <button class="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-4 px-8 rounded-full shadow-lg transition-all duration-300 text-xl mt-8" onclick="toggleMobileMenu()">
+                Đặt Bàn Ngay
+            </button>
+        </div>
+    </header>
+
+    <!-- 1. Main Banner (Banner Chính) -->
+    <section id="home" class="main-banner relative h-screen flex items-center justify-center text-center">
+        <!-- Lớp phủ (Overlay) -->
+        <div class="banner-overlay absolute inset-0 bg-black opacity-50"></div>
+        
+        <!-- Nội dung Banner -->
+        <div class="banner-content relative z-10 text-white p-4 md:p-8">
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 animate-fade-in-up">Hương Vị Quê Nhà</h1>
+            <p class="text-lg md:text-2xl mb-8 animate-fade-in-up delay-100">Nơi lưu giữ hồn Việt qua từng món ăn truyền thống và sáng tạo.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-200">
+                <button class="cta-button bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 text-lg">
+                    Đặt Bàn Ngay
+                </button>
+                <button class="cta-button border-2 border-white hover:bg-white hover:text-stone-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300 text-lg">
+                    Xem Thực Đơn
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Câu Chuyện Thương Hiệu (Our Story) -->
+    <section id="story" class="our-story py-16 md:py-24 bg-stone-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-stone-800 mb-12">Câu Chuyện Của Chúng Tôi</h2>
+            
+            <div class="story-content flex flex-col md:flex-row items-center gap-12 mb-16">
+                <!-- Văn bản 1 -->
+                <div class="story-text md:w-1/2 text-lg leading-relaxed text-stone-700">
+                    <p class="mb-4">
+                        "Hương Vị Quê Nhà" ra đời từ niềm đam mê bất tận với ẩm thực truyền thống Việt Nam, mang trong mình khát vọng gìn giữ và lan tỏa những giá trị văn hóa tinh túy qua từng món ăn. Chúng tôi tin rằng mỗi món ăn không chỉ là sự kết hợp của nguyên liệu, mà còn là câu chuyện về vùng đất, con người và ký ức.
+                    </p>
+                    <p class="italic text-xl text-stone-600 mb-4">
+                        "Mỗi món ăn là một câu chuyện, mỗi hương vị là một ký ức."
+                    </p>
+                    <p>
+                        Từ những ngày đầu tiên, chúng tôi đã đặt trọn tâm huyết vào việc lựa chọn nguyên liệu tươi ngon nhất từ các làng nghề truyền thống, kết hợp với bí quyết gia truyền và sự sáng tạo không ngừng của đội ngũ đầu bếp tài năng.
+                    </p>
+                </div>
+                <!-- Ảnh minh họa 1 -->
+                <div class="story-image md:w-1/2 rounded-xl shadow-xl overflow-hidden">
+                    <img src="https://cdn-www.vinid.net/d6dac5c7-aeb957b072bc4396fa108f0ae0cb55f0.jpg" alt="[Hình ảnh Nguyên liệu]" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+
+            <div class="story-content flex flex-col md:flex-row-reverse items-center gap-12">
+                <!-- Văn bản 2 -->
+                <div class="story-text md:w-1/2 text-lg leading-relaxed text-stone-700">
+                    <p class="mb-4">
+                        Không gian của "Hương Vị Quê Nhà" được thiết kế tỉ mỉ, mang đậm nét kiến trúc truyền thống Việt Nam kết hợp với sự sang trọng, hiện đại. Mỗi góc nhỏ đều được chăm chút để mang đến cảm giác ấm cúng, gần gũi như đang dùng bữa tại chính căn bếp của gia đình.
+                    </p>
+                    <p>
+                        Chúng tôi tự hào là nơi kết nối những tâm hồn yêu ẩm thực, nơi bạn có thể tìm thấy sự bình yên và thưởng thức những món ăn được chế biến bằng cả trái tim. Hãy đến và trải nghiệm hành trình vị giác độc đáo tại "Hương Vị Quê Nhà"!
+                    </p>
+                </div>
+                <!-- Ảnh minh họa 2 -->
+                <div class="story-image md:w-1/2 rounded-xl shadow-xl overflow-hidden">
+                    <img src="https://cdn-www.vinid.net/71ce4d85-01a4c5a8a692f4a15e0c66b2a3ee9ee8.jpg" alt="[Hình ảnh Không gian Nhà hàng]" class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Menu Chính (Our Menu Section) -->
+    <section id="menu" class="menu-section py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-center text-stone-800 mb-12">Thực Đơn Nổi Bật</h2>
+            
+            <div class="menu-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Món ăn 1 -->
+                <div class="menu-item-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn-www.vinid.net/cd670562-ef42d2b194710449677cd9dc51952a25.jpg" alt="[Hình ảnh Phở Gà]" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-stone-800 mb-2">Phở Gà Truyền Thống</h3>
+                        <p class="text-stone-600 mb-4">Món phở gà chuẩn vị Bắc với nước ninh xương đậm đà, bánh phở mềm và thịt gà tươi ngon.</p>
+                        <span class="price text-xl font-bold text-amber-600">85.000 VNĐ</span>
+                    </div>
+                </div>
+
+                <!-- Món ăn 2 -->
+                <div class="menu-item-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn-www.vinid.net/2e6bf292-ce09f40bb335ecd614ece11c6f14d061.jpg" alt="[Hình ảnh Nem Rán]" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-stone-800 mb-2">Nem Rán Giòn Rụm</h3>
+                        <p class="text-stone-600 mb-4">Nem rán vàng giòn, nhân thịt tôm mộc nhĩ thơm lừng, chấm nước mắm chua ngọt.</p>
+                        <span class="price text-xl font-bold text-amber-600">60.000 VNĐ</span>
+                    </div>
+                </div>
+
+                <!-- Món ăn 3 -->
+                <div class="menu-item-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn-www.vinid.net/1a62a75b-98f48ab4917bdb461a27ee1e2d20b766.jpg" alt="[Hình ảnh Gỏi Cuốn]" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-stone-800 mb-2">Gỏi Cuốn Tươi Mát</h3>
+                        <p class="text-stone-600 mb-4">Gỏi cuốn thanh đạm với tôm, thịt, rau sống tươi ngon, chấm tương đậu phộng béo ngậy.</p>
+                        <span class="price text-xl font-bold text-amber-600">55.000 VNĐ</span>
+                    </div>
+                </div>
+
+                <!-- Món ăn 4 -->
+                <div class="menu-item-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://cdn-www.vinid.net/424dd5ac-90546ab728a7c421ed32ee41ab05e006.jpg" alt="[Hình ảnh Bún Chả]" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-stone-800 mb-2">Bún Chả Hà Nội</h3>
+                        <p class="text-stone-600 mb-4">Bún chả chuẩn vị Hà Thành với chả nướng than hoa thơm lừng, nước chấm chua ngọt.</p>
+                        <span class="price text-xl font-bold text-amber-600">75.000 VNĐ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nút CTA xem toàn bộ thực đơn -->
+            <div class="text-center">
+                <button class="view-all-menu-btn bg-amber-500 hover:bg-amber-600 text-white font-semibold py-4 px-10 rounded-full shadow-lg transition-all duration-300 text-xl">
+                    Xem Toàn Bộ Thực Đơn
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Footer (Chân Trang) -->
+    <footer id="contact" class="main-footer bg-stone-900 text-white py-16 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="footer-columns grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Cột 1: Thông tin liên hệ -->
+                <div class="footer-col contact-info">
+                    <h3 class="text-2xl font-semibold mb-4 text-amber-300">Liên Hệ</h3>
+                    <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> 123 Đường Nguyễn Huệ, Q.1, TP.HCM</p>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> Hotline: <a href="tel:+84901234567" class="hover:text-amber-300">0901 234 567</a></p>
+                    <p class="mb-2"><i class="fas fa-envelope mr-2"></i> Email: <a href="mailto:info@huongviquenha.vn" class="hover:text-amber-300">info@huongviquenha.vn</a></p>
+                </div>
+
+                <!-- Cột 2: Giờ mở cửa -->
+                <div class="footer-col opening-hours">
+                    <h3 class="text-2xl font-semibold mb-4 text-amber-300">Giờ Mở Cửa</h3>
+                    <p class="mb-2">Thứ 2 - Thứ 6: 10:00 - 22:00</p>
+                    <p class="mb-2">Thứ 7 - Chủ Nhật: 09:00 - 23:00</p>
+                </div>
+
+                <!-- Cột 3: Liên kết mạng xã hội -->
+                <div class="footer-col social-links">
+                    <h3 class="text-2xl font-semibold mb-4 text-amber-300">Theo Dõi Chúng Tôi</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/koigardencambodia" target="_blank" class="text-white hover:text-amber-300 text-3xl transition-colors duration-300"><i class="fab fa-facebook-square"></i></a>
+                        <a href="https://instagram.com/huongviquenha" target="_blank" class="text-white hover:text-amber-300 text-3xl transition-colors duration-300"><i class="fab fa-instagram-square"></i></a>
+                        <a href="https://youtube.com/huongviquenha" target="_blank" class="text-white hover:text-amber-300 text-3xl transition-colors duration-300"><i class="fab fa-youtube-square"></i></a>
+                        <a href="https://tiktok.com/@huongviquenha" target="_blank" class="text-white hover:text-amber-300 text-3xl transition-colors duration-300"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Cột 4: Bản đồ (Tùy chọn) -->
+                <div class="footer-col map-embed">
+                    <h3 class="text-2xl font-semibold mb-4 text-amber-300">Tìm Chúng Tôi</h3>
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <!-- Placeholder cho Google Maps Embed -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.499071539227!2d106.6993179750952!3d10.77663208937077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f300c000001%3A0x7d25e0a0b0b0b0b!2sHo%20Chi%20Minh%20City%20Hall!5e0!3m2!1sen!2svn!4v1678901234567!5m2!1sen!2svn" 
+                                width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bản quyền -->
+            <div class="copyright text-center text-stone-500 mt-12 pt-8 border-t border-stone-700">
+                <p>&copy; 2025 Hương Vị Quê Nhà. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 5. Các Icon Liên Hệ Nổi (Floating Contact Icons) -->
+    <div class="floating-contact">
+        <a href="https://zalo.me/yourzalonumber" target="_blank" class="contact-icon zalo-icon" aria-label="Liên hệ Zalo">
+            <i class="fas fa-comment-dots"></i> <!-- Icon chat Zalo -->
+        </a>
+        <a href="tel:+84901234567" class="contact-icon hotline-icon" aria-label="Gọi Hotline">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+        <a href="https://www.facebook.com/koigardencambodia" target="_blank" class="contact-icon fanpage-icon" aria-label="Fanpage Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://m.me/huongviquenha" target="_blank" class="contact-icon chat-icon" aria-label="Chat Messenger">
+            <i class="fab fa-facebook-messenger"></i>
+        </a>
+    </div>
+
+    <script>
+        // JavaScript cho Sticky Header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) { // Khi cuộn xuống 50px
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // JavaScript cho Hamburger Menu (Mobile)
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        function toggleMobileMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('-translate-x-full');
+            mobileMenuOverlay.classList.toggle('translate-x-0');
+            document.body.classList.toggle('overflow-hidden'); // Ngăn cuộn trang khi menu mở
+        }
+
+        hamburger.addEventListener('click', toggleMobileMenu);
+
+        // JavaScript cho hiệu ứng Fade-in-up (có thể mở rộng cho các section khác)
+        // Đây là một ví dụ đơn giản, bạn có thể dùng Intersection Observer API để tối ưu hơn
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeInElements = document.querySelectorAll('.animate-fade-in-up');
+            fadeInElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 200 * index); // Delay cho từng phần tử
+            });
+        });
+    </script>
+</body>
+</html>
